@@ -1,0 +1,7 @@
+{
+	"name": "hackathon",
+	"dependencies": {
+		"node-hue-api": "^5.0.0-beta.3",
+		"opsgenie-sdk": "^0.5.0"
+	}
+}
