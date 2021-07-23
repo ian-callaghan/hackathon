@@ -30,7 +30,7 @@ const acknowledgeAlerts = async () => {
     setTimeout(async () => {
         await getAlerts()
         if (!alertData.length) {
-            const state = new LightState().on().white(100, 100)
+            const state = new LightState().on().white(225, 100)
             hue.changeLight(state, config.hue.lightIds)
         }
     }, 2500)
