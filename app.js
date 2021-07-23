@@ -5,10 +5,10 @@ const config = require("./config.json")
 const v3 = require("node-hue-api").v3
 const LightState = v3.lightStates.LightState
 
-const hasAlerts = () => alertData.length > 0
 const states = config.hue.alertStates
 let stateIndex = 0
 let alertData = []
+let isAlerting = false
 
 const start = async () => {
     flic.start(onButtonInput)
@@ -29,18 +29,20 @@ const acknowledgeAlerts = async () => {
     alertData = []
     setTimeout(async () => {
         await getAlerts()
-        if (!alertData.length) {
-            const state = new LightState().on().white(225, 100)
-            hue.changeLight(state, config.hue.lightIds)
-        }
-    }, 2500)
+    }, 1000)
 }
 
 const getAlerts = async () => {
     alertData = (await opsgenie.getAlerts(config.opsgenie.query)).data
     if (alertData.length > 0) {
+        isAlerting = true
         console.log("we have alerts")
     } else {
+        if (isAlerting) {
+            const state = new LightState().on().white(225, 100)
+            hue.changeLight(state, config.hue.lightIds)
+            isAlerting = false
+        }
         console.log("all is well")
     }
 }
