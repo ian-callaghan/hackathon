@@ -18,7 +18,7 @@ const start = async () => {
 
 const onButtonInput = (clickType, wasQueued, timeDiff) => {
     if (clickType === "ButtonDown") {
-        aknowledgeAlerts()
+        acknowledgeAlerts()
     }
 }
 
