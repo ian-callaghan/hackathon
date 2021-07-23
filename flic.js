@@ -7,7 +7,7 @@ client.on("error", (e) => {
     console.log(`Flic ${e}`)
 })
 
-const listenToButton = (bdAddr, callback) => {
+const listenToButton = (bdAddr) => {
     var cc = new fliclib.FlicConnectionChannel(bdAddr)
     client.addConnectionChannel(cc)
     cc.on("buttonUpOrDown", (clickType, wasQueued, timeDiff) => {
@@ -42,7 +42,7 @@ const start = (callbackFunction) => {
     callback = callbackFunction
     client.once("ready", () => {
         console.log("Connected to daemon!")
-        client.getInfo(function (info) {
+        client.getInfo((info) => {
             info.bdAddrOfVerifiedButtons.forEach((bdAddr) => {
                 listenToButton(bdAddr)
             })

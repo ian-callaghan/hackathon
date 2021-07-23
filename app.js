@@ -16,7 +16,7 @@ const start = async () => {
     opsgenie.start(config.opsgenie.apiKey)
 }
 
-const onButtonInput = (clickType, wasQueued, timeDiff) => {
+const onButtonInput = (clickType) => {
     if (clickType === "ButtonDown") {
         acknowledgeAlerts()
     }
@@ -27,9 +27,13 @@ const acknowledgeAlerts = async () => {
         await opsgenie.acknowledgeAlert(alert)
     })
     alertData = []
-    setTimeout(() => {
-        getAlerts()
-    }, 1000)
+    setTimeout(async () => {
+        await getAlerts()
+        if (!alertData.length) {
+            const state = new LightState().on().white(100, 100)
+            hue.changeLight(state, config.hue.lightIds)
+        }
+    }, 2500)
 }
 
 const getAlerts = async () => {
