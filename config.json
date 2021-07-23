@@ -1,8 +1,23 @@
 {
     "hue": {
-        "username": "I8FXh9MtDVB8zYEx-ZO-duKj3vzxw3ZgkDa0oMUM"
+        "username": "I8FXh9MtDVB8zYEx-ZO-duKj3vzxw3ZgkDa0oMUM",
+        "lightIds": [9, 10, 11],
+        "alertStates": [
+            {
+                "hue": 65535,
+                "saturation": 100,
+                "brightness": 100
+            },
+            {
+                "hue": 65535,
+                "saturation": 0,
+                "brightness": 0
+            }
+        ],
+        "alertToggleDuration": 750
     },
     "opsgenie": {
-        "apiKey": "6c5c994e-059d-4674-9958-adb5f62c6b01"
+        "apiKey": "5e9335a4-54e6-4544-baa5-1adf3815ff69",
+        "query": "teams: 'Frontend Tribe' status: 'open' acknowledged: false"
     }
 }

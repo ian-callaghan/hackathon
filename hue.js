@@ -1,5 +1,4 @@
 const v3 = require("node-hue-api").v3
-const LightState = v3.lightStates.LightState
 const discovery = v3.discovery
 const api = v3.api
 
@@ -18,28 +17,42 @@ const start = (username) => {
         })
         .then((api) => {
             hueApi = api
+
             hueApi.lights.getAll().then((allLights) => {
                 lights = allLights
+                console.log()
+                console.log(
+                    "**************************************************************************************************",
+                )
+                console.log("HUE LIGHTS FOUND:")
+                console.log(
+                    "**************************************************************************************************",
+                )
+                console.log(
+                    lights.map((light) => ({
+                        id: light.data.id,
+                        name: light.data.name,
+                    })),
+                )
+                console.log(
+                    "**************************************************************************************************",
+                )
                 ready = true
             })
         })
 }
 
-const changeLight = () => {
+const changeLight = (state, ids) => {
     if (ready) {
-        const state = new LightState()
-            .on()
-            .hue(65535)
-            .saturation(75)
-            .brightness(100)
         // Display the lights from the bridge
-        //console.log(JSON.stringify(allLights, null, 2));
         lights.forEach((light) => {
-            hueApi.lights.setLightState(light.data.id, state)
+            if (ids.indexOf(light.data.id) !== -1) {
+                hueApi.lights.setLightState(light.data.id, state)
+            }
         })
     } else {
         setTimeout(() => {
-            changeLight()
+            changeLight(state, ids)
         }, 1000)
     }
 }
