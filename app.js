@@ -1,10 +1,11 @@
 const flic = require("./flic")
 const hue = require("./hue")
 const opsgenie = require("./opsgenie")
+const config = require("./config.json")
 
 flic.start()
-hue.start("I8FXh9MtDVB8zYEx-ZO-duKj3vzxw3ZgkDa0oMUM")
-opsgenie.start("6c5c994e-059d-4674-9958-adb5f62c6b01")
+hue.start(config.hue.username)
+opsgenie.start(config.opsgenie.apiKey)
 
 opsgenie.getAlerts()
 hue.changeLight()
